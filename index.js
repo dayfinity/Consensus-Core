@@ -103,3 +103,23 @@ const pool = new StakingPool();
 // Register validators with staking power
 pool.addValidator("V-A", 40);
 pool.addValidator("V-B", 70);
+pool.addValidator("V-C", 55);
+pool.addValidator("V-D", 30);
+
+// Create consensus engine
+const engine = new ConsensusEngine(pool, ledger);
+
+// Proposals entering the system
+const proposalA = "Transfer Asset Batch #1";
+const proposalB = "Update Network Parameters";
+
+// Process pipeline
+const resultA = engine.evaluateProposal(proposalA);
+engine.finalizeBlock(resultA);
+
+const resultB = engine.evaluateProposal(proposalB);
+engine.finalizeBlock(resultB);
+
+// Output final ledger state
+console.log("\n--- LEDGER STATE ---");
+console.log(ledger.snapshot());
